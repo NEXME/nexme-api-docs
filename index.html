@@ -123,6 +123,462 @@
 
 <p>This is our stuff. Still being updated</p>
 
+          <h1 id="authentication">Authentication</h1>
+
+<h2 id="get-all-agents">Get all Agents</h2>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
+
+<span class="n">agents</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">all</span>
+</code></pre><pre class="highlight shell"><code>curl <span class="s2">"http://nexme.us/api/v1/agents"</span>
+</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">agents</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"agent_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WA"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"re_firm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keller Williams"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"birthday"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jun 11, 1986"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"license_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567899"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"active_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"available_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visa"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"plan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_basic_plan"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_A6r9VzPRhHvBXj"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_A6r9ARhuOII8sH"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Retrieve all users who have &ldquo;become an agent&rdquo;. Response will be an array of user objects that include all user attributes along with agent and subscription information.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://nexme.us/api/v1/agents</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/active</td>
+<td>Returns only active agents</td>
+</tr>
+<tr>
+<td>/available</td>
+<td>Returns active agents who are currently available to accept requests</td>
+</tr>
+</tbody></table>
+
+<!-- ############################################################################################## -->
+
+<h2 id="create-an-agent">Create an Agent</h2>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">agent_params</span><span class="p">)</span>
+<span class="n">agent</span><span class="p">.</span><span class="nf">save</span>
+</code></pre><pre class="highlight shell"><code>curl -i -X POST -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{
+  "v1_agent" : {
+    "re_firm" : "Real Estate Firm",
+    "city" : "Bellevue",
+    "state" : "WA",
+    "license_number" : "1234567899",
+    "phone": "5555555555",
+    "birthday" : "Jun 11, 1986",
+    "email": "email@example.com",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "cardholder" : "Cardholder Name",
+    "card_number" : "4242424242424242",
+    "cvv" : "123",
+    "expiration" : "12/17",
+    "billing_zip" : "98003"    
+  }
+}'</span> <span class="s2">"http://nexme.us/api/v1/agents"</span>
+</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">agentParams</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"agent_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"re_firm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keller Williams"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"birthday"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jun 11, 1986"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"license_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567899"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"active_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visa"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"plan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_basic_plan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_A6r9VzPRhHvBXj"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_A6r9ARhuOII8sH"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Create a new subscription for users how want to be agents on the platform. Collect agent information and credit card information to update their current user object. Having a profile picture/avatar is a requirement before becoming an agent.</p>
+
+<aside class="notice">
+Agents are users who have been assigned the <code>agent</code> role in the database.
+</aside>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://nexme.us/api/v1/agents</code></p>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>re_firm</td>
+<td>agent real estate firm</td>
+</tr>
+<tr>
+<td>city</td>
+<td>real estate firm&rsquo;s city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>WA</td>
+</tr>
+<tr>
+<td>license_number</td>
+<td>agent license number</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>user/agent phone number</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>user/agent birthday</td>
+</tr>
+<tr>
+<td>firstname</td>
+<td>user/agent first name</td>
+</tr>
+<tr>
+<td>lastname</td>
+<td>user/agent last name</td>
+</tr>
+<tr>
+<td>cardholder</td>
+<td>credit card holder name</td>
+</tr>
+<tr>
+<td>card_number</td>
+<td>credit card number</td>
+</tr>
+<tr>
+<td>cvv</td>
+<td>credit card security code</td>
+</tr>
+<tr>
+<td>expiration</td>
+<td>credit card expiration date</td>
+</tr>
+<tr>
+<td>billing_zip</td>
+<td>credit card billing zip code</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+As an agent, user attributes <code>agent_info</code> and <code>payment_info</code> will not be null
+</aside>
+
+<!-- ############################################################################################## -->
+
+<h2 id="update-an-agent">Update an Agent</h2>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
+
+<span class="n">uid</span>   <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+
+<span class="n">agent</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">agent_info: </span><span class="s1">'Keller Williams'</span><span class="p">,</span> <span class="ss">license_number: </span><span class="mi">98765432</span><span class="p">)</span>
+</code></pre><pre class="highlight shell"><code>curl -i -X PATCH
+  -H <span class="s2">"Content-Type: application/json"</span>
+  -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
+  -d <span class="s1">'{
+        "v1_agent" : {
+          "re_firm": "Keller Williams",
+          "license_number": "98765432",
+          "phone": "5555555555"
+        }
+      }'</span>
+  <span class="s2">"http://nexme.us/api/v1/agents/0"</span>
+</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">uid</span>   <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uid</span><span class="p">);</span>
+
+<span class="nx">agent</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">agentInfo</span><span class="p">:</span> <span class="s1">'Keller Williams'</span><span class="p">,</span> <span class="nx">licenseNumber</span><span class="p">:</span> <span class="mi">98765432</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"agent_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"re_firm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keller Williams"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"birthday"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jun 11, 1986"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"license_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567899"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"active_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visa"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"plan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_basic_plan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_A6r9VzPRhHvBXj"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_A6r9ARhuOII8sH"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Update an agent&rsquo;s user attributes and/or agent &amp; payment attribute by sending all parameters directly inside a nested <code>v1_agent</code> object.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PATCH/PUT http://nexme.us/api/v1/agents/0</code></p>
+
+<h3 id="http-header">HTTP Header</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uid</td>
+<td>identify agent by uid header</td>
+</tr>
+</tbody></table>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>re_firm</td>
+<td>agent real estate firm</td>
+</tr>
+<tr>
+<td>city</td>
+<td>real estate firm&rsquo;s city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>WA</td>
+</tr>
+<tr>
+<td>license_number</td>
+<td>agent license number</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>user/agent phone number</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>user/agent birthday</td>
+</tr>
+<tr>
+<td>firstname</td>
+<td>user/agent first name</td>
+</tr>
+<tr>
+<td>lastname</td>
+<td>user/agent last name</td>
+</tr>
+<tr>
+<td>cardholder</td>
+<td>credit card holder name</td>
+</tr>
+<tr>
+<td>card_number</td>
+<td>credit card number</td>
+</tr>
+<tr>
+<td>cvv</td>
+<td>credit card security code</td>
+</tr>
+<tr>
+<td>expiration</td>
+<td>credit card expiration date</td>
+</tr>
+<tr>
+<td>billing_zip</td>
+<td>credit card billing zip code</td>
+</tr>
+</tbody></table>
+
+<!-- ############################################################################################## -->
+
+<h2 id="change-status">Change Status</h2>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
+
+<span class="n">uid</span> <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">uid</span><span class="p">).</span><span class="nf">toggle_status</span>
+<span class="n">agent</span><span class="p">.</span><span class="nf">save</span>
+</code></pre><pre class="highlight shell"><code>curl -i -X PUT
+  -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
+  <span class="s2">"http://nexme.us/api/v1/agents/0/status"</span>
+</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">uid</span> <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
+
+<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uid</span><span class="p">);</span>
+<span class="nx">agent</span><span class="p">.</span><span class="nx">toggleStatus</span><span class="p">;</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"active_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Agents cannot make themselves &ldquo;available&rdquo; for requests until they are verified internally and made active in our database. An agent is verified/active when their <code>active_agent</code> attribute is set to <code>true</code>.</p>
+
+<aside class="notice">
+  This endpoint toggles <code>active_agent</code> between true / false upon each request
+</aside>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT http://nexme.us/api/v1/agents/0/status</code></p>
+
+<h3 id="http-header">HTTP Header</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uid</td>
+<td>identify agent by uid header</td>
+</tr>
+</tbody></table>
+
+<!-- ############################################################################################## -->
+
+<h2 id="delete-agent">Delete Agent</h2>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
+
+<span class="n">uid</span> <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+<span class="n">agent</span><span class="p">.</span><span class="nf">delete</span>
+</code></pre><pre class="highlight shell"><code>curl -i -X DELETE
+  -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
+  <span class="s2">"http://nexme.us/api/v1/agents/0"</span>
+</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">uid</span> <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
+
+<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uid</span><span class="p">);</span>
+<span class="nx">agent</span><span class="p">.</span><span class="k">delete</span><span class="p">();</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"agent_info"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"active_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint DOES NOT DELETE THE USER. It removes their <code>agent</code> role and reassigns them with the  <code>user</code> role. Their subscription is canceled and their <code>agent_info</code> and <code>payment_info</code> attributes become nullified. The user will still be able to login/use the app just not as an agent.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE http://nexme.us/api/v1/agents/0</code></p>
+
+<h3 id="http-header">HTTP Header</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uid</td>
+<td>identify agent by uid header</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+  The entire user object is returned with agent values set as shown in the right pane &mdash;>
+</aside>
+
+<!-- ############################################################################################## -->
+
           <h1 id="users">Users</h1>
 
 <h2 id="get-all-users">Get all Users</h2>
@@ -148,7 +604,7 @@
     </span><span class="nt">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lastname"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@email.com"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
     </span><span class="nt">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1008,18 +1464,20 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 
           <h1 id="messages">Messages</h1>
 
-<h2 id="get-all-messages">Get all Messages</h2>
+<h2 id="get-all-threads">Get all Threads</h2>
 
 <blockquote>
 <p>Request</p>
 </blockquote>
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
 
-<span class="n">threads</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Listing</span><span class="p">.</span><span class="nf">all</span>
-</code></pre><pre class="highlight shell"><code>curl <span class="s2">"http://nexme.us/api/v1/listings"</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Message</span><span class="p">.</span><span class="nf">all</span>
+</code></pre><pre class="highlight shell"><code>curl
+  -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
+  <span class="s2">"http://nexme.us/api/v1/messages"</span>
 </code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">listings</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">listings</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">threads</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">messaegs</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
 </code></pre>
 <blockquote>
 <p>Response object</p>
@@ -1027,70 +1485,28 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"property_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"listing_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MANU"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"mls_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98004"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000 Main St."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">47.2710612</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.3006935</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"beds"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"baths"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$53,000"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"year_built"</span><span class="p">:</span><span class="w"> </span><span class="mi">1840</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"date_listed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10/21/16"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earum aliquam tempore repellendus ex. Error enim ut sed maxime consequatur. Optio et dolorem laboriosam magnam animi. Adipisci sed sed blanditiis qui nostrum consequatur sequi. Sit fugiat quae velit sint rem."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"estmortgage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$269"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"square_feet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,950"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">345</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"tax_year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2017</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"parcel_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345678</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="nt">"schools"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"EL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland Elementary School"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"HS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland High School"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"JH"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland Middle School"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"vacant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-31T00:27:02.298Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-31T00:27:02.298Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T08:59:01.724Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T08:59:01.724Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thanks for showing me the house, how do we move forward?"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-57fg9769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"message_thread_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:20:27.290Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:59:05.170Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>Messages are returned in threads, so your response will be an array of message threads that pertain to the user, with each thread including an array of all sent/received messages</p>
+<p>This endpoint returns all threads related to the user, each thread includes that last/most recently sent/received message. Threads are returned in order of <code>updated_at</code> descending.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">GET http://nexme.us/api/v1/messages</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="http-headers">HTTP Headers</h3>
 
 <table><thead>
 <tr>
@@ -1099,48 +1515,76 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 </tr>
 </thead><tbody>
 <tr>
-<td>/all</td>
-<td>Returns all listings, even if <code>active</code> is false</td>
+<td>uid</td>
+<td>identify user by uid header</td>
 </tr>
 </tbody></table>
 
 <!-- ############################################################################################## -->
 
-<h2 id="like-a-listing">Like a Listing</h2>
+<h2 id="get-messages">Get Messages</h2>
 
 <blockquote>
 <p>Request</p>
 </blockquote>
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
 
-<span class="nb">id</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">listing</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Listing</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 
-<span class="n">listing</span><span class="p">.</span><span class="nf">toggle_like</span>
-</code></pre><pre class="highlight shell"><code>curl -i -X PUT
+<span class="n">thread</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">MessageThread</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+
+<span class="n">thread</span><span class="p">.</span><span class="nf">messages</span>
+</code></pre><pre class="highlight shell"><code>curl
   -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
-  <span class="s2">"http://nexme.us/api/v1/listings/1/like"</span>
+  <span class="s2">"http://nexme.us/api/v1/messages/1"</span>
 </code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">listing</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">listings</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">thread</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">messagesThreads</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uid</span><span class="p">);</span>
 
-<span class="nx">listing</span><span class="p">.</span><span class="nx">toggleLike</span><span class="p">;</span>
+<span class="nx">thread</span><span class="p">.</span><span class="nx">messages</span><span class="p">;</span>
 </code></pre>
 <blockquote>
 <p>Response object</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"liked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+  </span><span class="nt">"participants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user1@email.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User One"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user2@email.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User Two"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lets me for coffee and go over next steps"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-57fg9769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-57fg9769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"message_thread_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:20:27.290Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:59:05.170Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thanks for showing me the house, how do we move forward?"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-57fg9769e8b1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"message_thread_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:06:00.102Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-14T09:59:05.134Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Liking listings is a matter of toggling a user&rsquo;s &ldquo;vote&rdquo; on a listing between 1 and 0, which will translate to true or false for liking a home. The response object includes the listing id, total &ldquo;like&rdquo; count, and true / false &ldquo;liked&rdquo; for the current user.</p>
+<p>Get all messages within a single thread, ordered by <code>updated_at</code> descending, along with the name and email of all participants.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">PUT http://nexme.us/api/v1/listings/{id}/like</code></p>
+<p><code class="prettyprint">GET http://nexme.us/api/v1/messages/{id}</code></p>
 
 <h3 id="http-headers">HTTP Headers</h3>
 
@@ -1166,109 +1610,13 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>database id of listing to like/unlike</td>
+<td>database id of message thread</td>
 </tr>
 </tbody></table>
 
-<!-- ############################################################################################## -->
-
-<h2 id="get-liked-listings">Get Liked Listings</h2>
-
-<blockquote>
-<p>Request</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'nx'</span>
-
-<span class="n">listings</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Listing</span><span class="p">.</span><span class="nf">liked</span>
-</code></pre><pre class="highlight shell"><code>curl
-  -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
-  <span class="s2">"http://nexme.us/api/v1/listings/liked"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">listings</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">listings</span><span class="p">.</span><span class="nx">liked</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>Response object</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"property_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"listing_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MANU"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"mls_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98004"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000 Main St."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">47.2710612</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.3006935</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"beds"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"baths"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$53,000"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reference-to-image"</span><span class="p">,</span><span class="w">
-          </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"year_built"</span><span class="p">:</span><span class="w"> </span><span class="mi">1840</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"date_listed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10/21/16"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earum aliquam tempore repellendus ex. Error enim ut sed maxime consequatur. Optio et dolorem laboriosam magnam animi. Adipisci sed sed blanditiis qui nostrum consequatur sequi. Sit fugiat quae velit sint rem."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"estmortgage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$269"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"square_feet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,950"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">345</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"tax_year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2017</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"parcel_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345678</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="nt">"schools"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"EL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland Elementary School"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"HS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland High School"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"JH"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Woodland Middle School"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"vacant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-31T00:27:02.298Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-01-31T00:27:02.298Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>Retrieve all listings (active records) that have been liked by a particular user.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://nexme.us/api/v1/listings/liked</code></p>
-
-<h3 id="http-headers">HTTP Headers</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>uid</td>
-<td>identify user by uid header</td>
-</tr>
-</tbody></table>
+<aside class="notice">
+  The <code>recipient_id</code> attribute is only used for initiating a conversation. Afterwards, the attribute value may remain the same or become null.
+</aside>
 
 <!-- ############################################################################################## -->
 
@@ -1297,7 +1645,7 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
     </span><span class="nt">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lastname"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@email.com"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
     </span><span class="nt">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
