@@ -29,7 +29,7 @@ let users = nx.users.all();
     "lastname": "Lastname",
     "email": "user@email.com",
     "phone": "1234567890",
-    "uid": "user@email.com",
+    "uid": "861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1",
     "id": 19,
     "provider": "email",
     "image": null,
