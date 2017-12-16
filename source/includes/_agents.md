@@ -256,6 +256,44 @@ expiration | credit card expiration date
 billing_zip | credit card billing zip code
 
 <!-- ############################################################################################## -->
+## Change Availability
+```ruby
+require 'nx'
+
+uid = 'test@test.co'
+agent = NX::Agent.find(uid)
+agent.available_agent = 1
+agent.save
+```
+
+```shell
+curl -i -X PUT
+  -H "Content-Type: application/json"
+  -H "uid: test@test.co"
+  -d '{
+        "v1_agent" : {
+          "available_agent": true,
+        }
+      }'
+  "http://nexme.us/api/v1/agents/0/availability"
+```
+
+```javascript
+const nx = require('nx');
+
+let uid = 'test@test.co'
+let agent = nx.agents.get(uid);
+```
+> Response object
+
+```json
+{
+  "uid": "test@test.co",
+  "available_agent": true
+}
+```
+
+<!-- ############################################################################################## -->
 
 ## Change Status
 
