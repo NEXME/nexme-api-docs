@@ -293,6 +293,17 @@ let agent = nx.agents.get(uid);
 }
 ```
 
+### HTTP Request
+
+`PUT http://nexme.us/api/v1/agents/0/availability`
+
+### HTTP Header
+
+Parameter | Description
+--------- | -----------
+Content-Type | application/json
+uid | identify agent by uid header
+
 <!-- ############################################################################################## -->
 
 ## Change Status
