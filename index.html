@@ -825,11 +825,7 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
     "email": "email@example.com",
     "firstname": "Firstname",
     "lastname": "Lastname",
-    "cardholder" : "Cardholder Name",
-    "card_number" : "4242424242424242",
-    "cvv" : "123",
-    "expiration" : "12/17",
-    "billing_zip" : "98003"    
+    "api_version" : "2017-08-15"    
   }
 }'</span> <span class="s2">"http://nexme.us/api/v1/agents"</span>
 </code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
@@ -853,11 +849,10 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
   </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visa"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"plan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_basic_plan"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_A6r9VzPRhHvBXj"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_A6r9ARhuOII8sH"</span><span class="w">
+    </span><span class="nt">"ephemeral_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ephemeral_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ephemeral_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ephemeral_expires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -912,26 +907,6 @@ Agents are users who have been assigned the <code>agent</code> role in the datab
 <td>lastname</td>
 <td>user/agent last name</td>
 </tr>
-<tr>
-<td>cardholder</td>
-<td>credit card holder name</td>
-</tr>
-<tr>
-<td>card_number</td>
-<td>credit card number</td>
-</tr>
-<tr>
-<td>cvv</td>
-<td>credit card security code</td>
-</tr>
-<tr>
-<td>expiration</td>
-<td>credit card expiration date</td>
-</tr>
-<tr>
-<td>billing_zip</td>
-<td>credit card billing zip code</td>
-</tr>
 </tbody></table>
 
 <aside class="notice">
@@ -985,13 +960,6 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
   </span><span class="nt">"available_agent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"payment_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visa"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"plan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_basic_plan"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_A6r9VzPRhHvBXj"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_A6r9ARhuOII8sH"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
   </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1054,26 +1022,6 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 <tr>
 <td>lastname</td>
 <td>user/agent last name</td>
-</tr>
-<tr>
-<td>cardholder</td>
-<td>credit card holder name</td>
-</tr>
-<tr>
-<td>card_number</td>
-<td>credit card number</td>
-</tr>
-<tr>
-<td>cvv</td>
-<td>credit card security code</td>
-</tr>
-<tr>
-<td>expiration</td>
-<td>credit card expiration date</td>
-</tr>
-<tr>
-<td>billing_zip</td>
-<td>credit card billing zip code</td>
 </tr>
 </tbody></table>
 
@@ -1213,7 +1161,7 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 
 <!-- ############################################################################################## -->
 
-<h2 id="change-status">Change Status</h2>
+<h2 id="change-account-status">Change Account Status</h2>
 
 <blockquote>
 <p>Request</p>
