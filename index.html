@@ -751,9 +751,6 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 
 <span class="n">agents</span> <span class="o">=</span> <span class="no">NX</span><span class="o">::</span><span class="no">Agent</span><span class="p">.</span><span class="nf">all</span>
 </code></pre><pre class="highlight shell"><code>curl <span class="s2">"http://nexme.us/api/v1/agents"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">agents</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
 </code></pre>
 <blockquote>
 <p>Response object</p>
@@ -832,9 +829,6 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
     "api_version" : "2017-08-15"    
   }
 }'</span> <span class="s2">"http://nexme.us/api/v1/agents"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">agentParams</span><span class="p">);</span>
 </code></pre>
 <blockquote>
 <p>Response object</p>
@@ -1251,12 +1245,6 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 </code></pre><pre class="highlight shell"><code>curl -i -X DELETE
   -H <span class="s2">"uid: 861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1"</span>
   <span class="s2">"http://nexme.us/api/v1/agents/0"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">nx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'nx'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">uid</span> <span class="o">=</span> <span class="s1">'861f7f7f-36f0-4e8d-9f0e-c1cfc769e8b1'</span>
-
-<span class="kd">let</span> <span class="nx">agent</span> <span class="o">=</span> <span class="nx">nx</span><span class="p">.</span><span class="nx">agents</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uid</span><span class="p">);</span>
-<span class="nx">agent</span><span class="p">.</span><span class="k">delete</span><span class="p">();</span>
 </code></pre>
 <blockquote>
 <p>Response object</p>
