@@ -1154,38 +1154,37 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 <h2 id="update-agent-location">Update Agent Location</h2>
 
 <blockquote>
-<p>Request
-<code class="prettyprint">shell
-curl -i -X PUT
-  -H &quot;uid: test@test.co&quot;
-  -d &#39;{
-        &quot;v1_agent&quot; : {
-          &quot;latitude&quot;: 45.00,
-          &quot;longitude&quot;: -123.00
-      }
-    }&#39;
-  &quot;http://nexme.us/api/v1/agents/0/location&quot;
-</code>
-Response object
-<code class="prettyprint">json
-{
-  &quot;...&quot;:&quot;&quot;,
-  &quot;license&quot;: {
-    &quot;city&quot;: &quot;Bellevue&quot;,
-    &quot;state&quot;: &quot;WA&quot;,
-    &quot;re_firm&quot;: &quot;Keller Williams&quot;,
-    &quot;birthday&quot;: &quot;Jun 11, 1986&quot;,
-    &quot;license_number&quot;: &quot;1234567899&quot;
-  },
-  &quot;status&quot;: 0,
-  &quot;availability&quot;: 0,
-  &quot;latitude&quot;: 45.0,
-  &quot;longitude&quot;: -123.0,
-  &quot;...&quot;:&quot;&quot;
-}
-</code></p>
+<p>Request</p>
 </blockquote>
-
+<pre class="highlight shell"><code>curl -i -X PUT
+  -H <span class="s2">"uid: test@test.co"</span>
+  -d <span class="s1">'{
+        "v1_agent" : {
+          "latitude": 45.00,
+          "longitude": -123.00
+      }
+    }'</span>
+  <span class="s2">"http://nexme.us/api/v1/agents/0/location"</span>
+</code></pre>
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bellevue"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"re_firm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keller Williams"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"birthday"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jun 11, 1986"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"license_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567899"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">45.0</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-123.0</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"..."</span><span class="p">:</span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <!-- ############################################################################################## -->
 
 <h2 id="update-an-ephemeralkey-for-stripe">Update an Ephemeralkey for Stripe</h2>
