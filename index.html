@@ -1331,40 +1331,41 @@ As an agent, user attributes <code>agent_info</code> and <code>payment_info</cod
 <h2 id="visit-property">Visit Property</h2>
 
 <blockquote>
-<p>Request
-&ldquo;`shell
-curl -i -X PATCH
-  -H &quot;Content-Type: application/json&rdquo;
-  -H &ldquo;uid: test@test.co&rdquo;
-  -d &rsquo;{
-        &ldquo;v1_request&rdquo; : {
-          &ldquo;apn&rdquo;: true,
-          &ldquo;listing_id&rdquo;: 20121
-        }
-      }&rsquo;
-  &ldquo;http://nexme.us/api/v1/requests/0/visit&rdquo;</p>
+<p>Request</p>
 </blockquote>
-<pre class="highlight plaintext"><code>
-&gt; Response object
+<pre class="highlight shell"><code>curl -i -X PATCH
+  -H <span class="s2">"Content-Type: application/json"</span>
+  -H <span class="s2">"uid: test@test.co"</span>
+  -d <span class="s1">'{
+        "v1_request" : {
+          "apn": true,
+          "listing_id": 20121
+        }
+      }'</span>
+  <span class="s2">"http://nexme.us/api/v1/requests/0/visit"</span>
 
-```json
-{
-  "request_id" : 101,
-  "request_type" : 1,
-  "requester_id" : 23,
-  "requester_name" : "My Nickname",
-  "requester_profile" : "https://my.profile.url",
-  "pre_approved" : "https://my.pre-approved.letter.url",
-  "property_id" : 20121,
-  "property" : {
-                  "latitude" : 35.000,
-                  "longitude" : -125.0000,
-                  "address" : "Property address"
-                } 
-}
 </code></pre>
-<p>Agents in 3-5 miles radius of the listing will receive push notification with data:
-<code class="prettyprint">{
+<blockquote>
+<p>Response object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"request_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"request_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"requester_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"requester_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"My Nickname"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"requester_profile"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.profile.url"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"pre_approved"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.pre-approved.letter.url"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"property_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20121</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"property"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"latitude"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">35.000</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"longitude"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">-125.0000</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Property address"</span><span class="w">
+                </span><span class="p">}</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Agents in 3-5 miles radius of the listing will receive push notification with data:</p>
+
+<p><code class="prettyprint">{
   &quot;request_id&quot; : 101,
   &quot;request_type&quot; : 1,
   &quot;requester_id&quot; : 23,
